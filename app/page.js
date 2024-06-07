@@ -4,37 +4,32 @@ import { useEffect, useState } from "react";
 import ImageCard from "./components/image";
 import supabase from "../app/utils/supabase";
 import Loader from "../app/components/loader"
-import { Suspense } from 'react';
 
 
 
 export default function Home() {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() =>{
     const getData = async() =>{
       const { data , error} = await supabase.from("movies").select("poster_path").limit(1000);
       setData(data);
+      setIsLoading(false);
     };
+    setIsLoading(true);
     getData();
   }, []);
   
   return (
-    <main className="bg-gradient-to-r from-blue-900 via-purple-800 to-red-600  min-h-screen flex flex-col items-center p-10">
-     <h1 className="font-playfair text-3xl md:text-3xl font-bold text-white leading-tight tracking-wide">Movie Saga</h1> 
-     <div className="flex justify-center">
-       <section className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-10 mt-5">
-     {data.map(data =>  {
-        return (   
-          <Suspense fallback={<Loader />}>   
-              <ImageCard key={data.poster_path} path={data.poster_path}   
-              /> 
-              </Suspense>        
-        )
-        })
-      }
-      </section>
+    <main className="bg-gradient-to-r from-blue-900 via-purple-800 to-red-600 min-h-screen flex flex-col items-center p-10">
+  <h1 className="bg-gray-700 shadow-lg py-4 w-full text-center rounded-lg font-happy-monkey text-3xl md:text-3xl font-bold text-white leading-tight tracking-wide">MOVIE SAGA</h1>
+  <div className={isLoading ? "flex justify-center items-center min-h-screen": "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 mt-5"}>
+      {isLoading ? <Loader /> : data.map(data =>  (
+        <ImageCard key={data.poster_path} path={data.poster_path} />
+      ))}
       </div>
-    </main>
+</main>
+
   );
 }
 

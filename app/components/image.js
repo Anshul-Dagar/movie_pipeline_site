@@ -6,8 +6,8 @@ export default function ImageCard({path}) {
     return (
        <LazyLoadImage className="rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow_2xl"
         src={url}
-        width={170}
-        height={170}
+        width={200}
+        height={200}
         alt="Movie Poster"
       />
     );
