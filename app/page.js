@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import ImageCard from "./components/image";
 import supabase from "../app/utils/supabase";
+import Loader from "../app/components/loader"
+import { Suspense } from 'react';
 
 
 
@@ -10,7 +12,7 @@ export default function Home() {
   const [data, setData] = useState([]);
   useEffect(() =>{
     const getData = async() =>{
-      const { data , error} = await supabase.from("movies").select("poster_path").limit(100);
+      const { data , error} = await supabase.from("movies").select("poster_path").limit(1000);
       setData(data);
     };
     getData();
@@ -22,9 +24,11 @@ export default function Home() {
      <div className="flex justify-center">
        <section className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-10 mt-5">
      {data.map(data =>  {
-        return (        
+        return (   
+          <Suspense fallback={<Loader />}>   
               <ImageCard key={data.poster_path} path={data.poster_path}   
-              />         
+              /> 
+              </Suspense>        
         )
         })
       }
