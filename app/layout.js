@@ -5,7 +5,7 @@ import Head from 'next/head'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Movies Site",
+  title: "Movie Saga",
   description: "Movies Poster from TMDB API",
 };
 
