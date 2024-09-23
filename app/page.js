@@ -21,6 +21,7 @@ export default function Home() {
   }, []);
   
   return (
+
     <main className="min-h-screen flex flex-col items-center px-8 py-4">
   <h1 className="bg-[#542437] shadow-lg py-4 w-full text-center rounded-lg font-happy-monkey text-3xl md:text-3xl font-bold text-white leading-tight tracking-wide">MOVIE SAGA</h1>
   <div className={isLoading ? "flex justify-center items-center min-h-screen": "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 mt-5"}>
